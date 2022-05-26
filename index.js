@@ -8,6 +8,7 @@ const generateHTML = require('./src/generateMarkdown');
 
 
 // TODO: I need to create an array of questions for user input with inquirer for Manager, intern, engineer.
+// need .then after promise
 
 const newTeamMember = () => {
     return inquirer.prompt ([
@@ -15,17 +16,32 @@ const newTeamMember = () => {
         type: 'list',
         message: 'Which type of team member would you like to add?',
         choices: ['Engineer', 'Intern', "I don't want to add any more team members"],
+        name: "demo"
     },
 
-    ]);
+    ])
+
+    .then((answers) => {
+        if (answers.demo === 'Engineer') {
+            engineerQuestions();
+        } else if (answers.demo === 'Intern') {
+            internQuestions();
+        } else if (answers.demo === "I don't want to add anymore team members") {
+            return;
+        }
+
+    });
+
+    
+
 };
 
 
 
-
+// TODO: add console log to function below for message to appear
 
 const managerQuestions = () => {
-    return inquirer.prompt([
+    inquirer.prompt([
     {
         type: 'input',
         message: "What is the team manager's name?",
@@ -39,7 +55,7 @@ const managerQuestions = () => {
     {
         type: 'input',
         message: "What is the team manager's e-mail?",
-        name: 'managerE-mail',
+        name: 'managerEmail',
     },
     {
         type: 'input',
@@ -47,7 +63,15 @@ const managerQuestions = () => {
         name: 'managerPhone',
     },
 
-  ]);
+  ])
+  .then((answers) => {
+      //do something with the answers
+      console.log(answers)
+
+      //whenever ready
+      newTeamMember();
+  });
+
 };
 
 
@@ -78,6 +102,7 @@ const engineerQuestions = () => {
     },
 
   ]);
+
 };
 
 
@@ -106,13 +131,15 @@ const internQuestions = () => {
     },
 
   ]);
+
 };
 
 
 // TODO: need to create initiation function in order to run application
 function init() {
-    
+    managerQuestions()
 }
 
 
 // Function to initialize application 
+init();
