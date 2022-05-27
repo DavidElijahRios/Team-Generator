@@ -1,11 +1,27 @@
 {
+  "name": "team-generator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
   "scripts": {
-    "test": "jest"
+    "test": "jest --verbose test/*"
   },
-  "devDependencies": {
-    "jest": "^28.1.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DavidElijahRios/Team-Generator.git"
   },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DavidElijahRios/Team-Generator/issues"
+  },
+  "homepage": "https://github.com/DavidElijahRios/Team-Generator#readme",
   "dependencies": {
-    "inquirer": "^8.2.4"
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.0"
   }
 }

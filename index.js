@@ -3,6 +3,8 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const generateHTML = require('./src/generateMarkdown');
 
+//  create an empty array and the all individual classes with require
+
 
 
 
@@ -16,21 +18,24 @@ const newTeamMember = () => {
         type: 'list',
         message: 'Which type of team member would you like to add?',
         choices: ['Engineer', 'Intern', "I don't want to add any more team members"],
-        name: "demo"
+        name: "newMember"
     },
 
     ])
 
     .then((answers) => {
-        if (answers.demo === 'Engineer') {
+        if (answers.newMember === 'Engineer') {
             engineerQuestions();
-        } else if (answers.demo === 'Intern') {
+        } else if (answers.newMember === 'Intern') {
             internQuestions();
-        } else if (answers.demo === "I don't want to add anymore team members") {
-            return;
+            // TODO: console log is not working
+        } else if (answers.newMember === "I don't want to add anymore team members") {
+            (answers) => fs.writeFile('index.html', genHTML(answers))
+            (() => console.log('Team Page successfully generated'))
         }
 
-    });
+    })
+
 
     
 
@@ -65,11 +70,9 @@ const managerQuestions = () => {
 
   ])
   .then((answers) => {
-      //do something with the answers
-      console.log(answers)
-
-      //whenever ready
-      newTeamMember();
+      
+    newTeamMember()
+   
   });
 
 };
@@ -101,7 +104,13 @@ const engineerQuestions = () => {
         name: 'engineerGithub',
     },
 
-  ]);
+  ])
+
+  .then((answers) => {
+
+      newTeamMember()
+
+   });
 
 };
 
@@ -130,7 +139,16 @@ const internQuestions = () => {
         name: 'internSchool'
     },
 
-  ]);
+  ])
+
+  .then((answers) => {
+
+    let intern = new Intern
+
+    newTeamMember()
+
+ });
+
 
 };
 
@@ -138,7 +156,10 @@ const internQuestions = () => {
 // TODO: need to create initiation function in order to run application
 function init() {
     managerQuestions()
-}
+    // .then((answers) => fs.writeFileSync('html.index', genHTML(answers)))
+    // .then(() => console.log('Team Page successfully generated'))
+    
+};
 
 
 // Function to initialize application 
