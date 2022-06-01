@@ -1,9 +1,14 @@
 // TODO: need to add all packages needed for my application
 const inquirer = require('inquirer');
 const fs = require('fs');
-const generateHTML = require('./src/generateMarkdown');
+const genHTML = require('./src/generateMarkdown.js');
+const Manager = require('./lib/Manager.js');
+const Engineer = require('./lib/Engineer.js');
+const Intern = require('./lib/Intern.js');
 
 //  create an empty array and the all individual classes with require
+
+const members = [];
 
 
 
@@ -17,7 +22,7 @@ const newTeamMember = () => {
     {
         type: 'list',
         message: 'Which type of team member would you like to add?',
-        choices: ['Engineer', 'Intern', "I don't want to add any more team members"],
+        choices: ['Engineer', 'Intern', "I don't want to add anymore team members"],
         name: "newMember"
     },
 
@@ -30,8 +35,15 @@ const newTeamMember = () => {
             internQuestions();
             // TODO: console log is not working
         } else if (answers.newMember === "I don't want to add anymore team members") {
-            (answers) => fs.writeFile('index.html', genHTML(answers))
-            (() => console.log('Team Page successfully generated'))
+            console.log(members)
+            const template = genHTML(members)
+            fs.writeFile('index.html', template, (err) => {
+                if(err) {
+                    throw error
+                }
+                console.log('Team Page successfully generated')
+            })
+            
         }
 
     })
@@ -50,7 +62,7 @@ const managerQuestions = () => {
     {
         type: 'input',
         message: "What is the team manager's name?",
-        name: 'mangerName',
+        name: 'managerName',
     },
     {
         type: 'input',
@@ -70,6 +82,8 @@ const managerQuestions = () => {
 
   ])
   .then((answers) => {
+      let manager = new Manager(answers.managerName, answers.managerId, answers.managerEmail, answers.managerPhone)
+    members.push(manager)
       
     newTeamMember()
    
@@ -96,7 +110,7 @@ const engineerQuestions = () => {
     {
         type: 'input',
         message: "What is your engineer's e-mail?",
-        name: 'engineerE-mail',
+        name: 'engineerEmail',
     },
     {
         type: 'input',
@@ -107,6 +121,9 @@ const engineerQuestions = () => {
   ])
 
   .then((answers) => {
+      const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGithub)
+    members.push(engineer)
+
 
       newTeamMember()
 
@@ -131,7 +148,7 @@ const internQuestions = () => {
     {
         type: 'input',
         message: "what is your intern's email?",
-        name: 'internE-mail',
+        name: 'internEmail',
     },
     {
         type: 'input',
@@ -142,8 +159,8 @@ const internQuestions = () => {
   ])
 
   .then((answers) => {
-
-    let intern = new Intern
+      const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
+    members.push(intern)
 
     newTeamMember()
 
@@ -156,8 +173,6 @@ const internQuestions = () => {
 // TODO: need to create initiation function in order to run application
 function init() {
     managerQuestions()
-    // .then((answers) => fs.writeFileSync('html.index', genHTML(answers)))
-    // .then(() => console.log('Team Page successfully generated'))
     
 };
 

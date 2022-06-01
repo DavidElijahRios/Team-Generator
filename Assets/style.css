@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    background-color: white;
+}
+ header {
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-size: 35px;
+    background-color: violet;
+}
+
+/* styling for all cards */
+.allCards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    border-style: solid;
+    width: fit-content;
+    height: fit-content;
+    margin: 30px;
+    box-shadow: 10px 10px grey;
+    padding-bottom: 10px;
+    
+}
+
+.heading {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    background-color: aqua;
+    color: black;
+    margin-bottom: 20px;
+
+}
+
+/* styling for headings */
+#name {
+    position: relative;
+    left: 25px;
+    font-size: 30px;
+    font-weight: 900;
+}
+
+#title {
+    position: relative;
+    left: 45px;
+    bottom: 25px;
+    font-size: 25px;
+    text-decoration: underline;
+}
+
+
+h5 {
+    border-style: solid;
+    border-radius: 5px;
+    margin: 15px;
+    padding: 10px;
+    height: 15px;
+    width: 250px;
+}
+
+

@@ -14,4 +14,10 @@ describe("Manager", () => {
 
         expect(test1.getOfficePhone()).toBe(619);
     })
+
+    test("Getting the correct role", () => {
+           const test1 = new Manager("David", 25, "rios@rios.com", 619)
+
+           expect(test1.getRole()).toBe("Manager");
+    })
 })
